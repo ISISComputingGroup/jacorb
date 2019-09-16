@@ -2,7 +2,8 @@
 
 ### To build:
 
-- Ensure your `JAVA_HOME` points to a java 11 JDK
+- Ensure your `JAVA_HOME` points to a Java 11 JDK
+- Ensure you have a maven version >=3.6 (but not 3.6.1 as that version has a bug preventing tycho builds from succeeding).
 - `cd` into `jacorb`
 - run `mvn clean verify`
 
