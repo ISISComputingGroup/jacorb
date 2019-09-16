@@ -1,0 +1,142 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>jacorb</groupId>
+  <artifactId>jacorb</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <properties>
+		<tycho.version>1.4.0</tycho.version>
+		<tycho-repo.url>https://oss.sonatype.org/content/groups/public/</tycho-repo.url>
+		<photon-repo.url>http://download.eclipse.org/releases/photon</photon-repo.url>
+		<photon-updates-repo.url>http://download.eclipse.org/eclipse/updates/4.10</photon-updates-repo.url>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
+	<repositories>
+		<repository>
+			<id>photon-updates</id>
+			<layout>p2</layout>
+			<url>${photon-updates-repo.url}</url>
+		</repository>
+	</repositories>
+  
+  <build>
+	
+		<plugins>
+		
+		    <plugin>
+			  <groupId>org.reficio</groupId>
+			  <artifactId>p2-maven-plugin</artifactId>
+			  <version>1.3.0</version>
+			  <executions>
+			    <execution>
+			      <id>default-cli</id>
+			      <phase>package</phase>
+			      <goals>
+			        <goal>site</goal>
+			      </goals>
+			      <configuration>
+				  <artifacts>
+				    <artifact>
+				      <id>org.jacorb:jacorb-omgapi:jar:3.9</id>
+				    </artifact>
+				  </artifacts>
+				</configuration>
+			    </execution>
+			  </executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<extensions>true</extensions>
+			</plugin>
+            
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					
+					<environments>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86_64</arch>
+						</environment>
+					        <environment>
+					                <os>linux</os>
+					                <ws>gtk</ws>
+					                <arch>x86_64</arch>
+					        </environment>
+					</environments>
+					<target>
+						<artifact>
+							<groupId>${project.groupId}</groupId>
+							<artifactId>${project.artifactId}</artifactId>
+							<version>${project.version}</version>
+							<classifier>../uk.ac.stfc.isis.ibex.targetplatform/uk.ac.stfc.isis.ibex.targetplatform</classifier>
+						</artifact>
+					</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-packaging-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<strictBinIncludes>false</strictBinIncludes>
+					<format>yyyyMMdd-HHmm</format>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-compiler-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<compilerArgument>-err:-forbidden</compilerArgument>
+					
+				</configuration>
+			</plugin>
+
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.eclipse.tycho</groupId>
+										<artifactId>
+											tycho-packaging-plugin
+										</artifactId>
+										<versionRange>
+											[0.20.0,)
+										</versionRange>
+										<goals>
+											<goal>validate-version</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	
+
+</project>
